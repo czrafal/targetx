@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:form>
+	<p:menubar rendered="true" style="border: none; z-index: 9998; overflow: visible;">
+				<p:submenu label="Zdarzenia">
+						<p:menuitem value="Przegladaj" outcome="/system/realMapView.xhtml">
+							<!-- <f:param name="page" value="../system/realMapView" />
+							<f:param name="header" value="Nowy kierowca" /> -->
+						</p:menuitem>
+
+					</p:submenu>
+					<p:submenu label="Pojazdy">
+						<p:menuitem value="Nowy pojazd" outcome="/system/newVehicle.xhtml">
+							<!-- <f:param name="page" value="../system/newVehicle" />
+							<f:param name="header" value="Nowy pojazd" /> -->
+						</p:menuitem>
+
+						<p:menuitem value="Przeglady pojazdow" outcome="/system/allVehiclesView.xhtml">
+							<!-- <f:param name="page" value="../system/allVehiclesView" />
+							<f:param name="header" value="Przeglady pojazdow" /> -->
+						</p:menuitem>
+					</p:submenu>
+
+					<p:submenu label="Kierowcy">
+						<p:menuitem value="Nowy kierowca" outcome="/system/newDriverView.xhtml">
+							<!-- <f:param name="page" value="../system/newDriverView.xhtml"/>
+							<f:param name="header" value="Nowy kierowca" /> -->
+						</p:menuitem>
+
+						<p:menuitem value="Zarzadzaj kierowcami" outcome="/system/driversView.xhtml">
+							<!-- <f:param name="page" value="../system/driversView" />
+							<f:param name="header" value="Wszyscy kierowcy" />-->
+						</p:menuitem>
+
+						<p:menuitem value="Czas pracy" outcome="/system/workTimeView.xhtml">
+							<!-- <f:param name="page" value="../system/workTimeView" />
+							<f:param name="header" value="Czas pracy" /> -->
+						</p:menuitem>
+					</p:submenu>
+
+					<p:submenu label="Trasy">
+						<p:menuitem value="Przegladaj" outcome="/system/routesView.xhtml">
+							<!-- <f:param name="page" value="../system/viewRoutes" />
+							<f:param name="header" value="Trasy" /> -->
+						</p:menuitem>
+						<p:menuitem value="Tryb rzeczywisty"  outcome="/system/realMapView.xhtml">
+							<!-- <f:param name="page" value="../system/realMapView"/>
+							<f:param name="header" value="Mapa" /> -->
+						</p:menuitem>
+					</p:submenu>
+					
+					<p:submenu label="Paliwo">
+						<p:menuitem value="Dystrybutor" outcome="/system/distributorView.xhtml">
+						<!-- 	<f:param name="page" value="../system/distributorView" />
+							<f:param name="header" value="Dystrybutor" /> -->
+						</p:menuitem>
+						<p:menuitem value="Tankowania" outcome="/system/tanksView.xhtml">
+						<!-- <f:param name="page" value="../system/tanksView" />
+							<f:param name="header" value="Tankowania" /> -->
+						</p:menuitem>
+					</p:submenu>
+					
+					<p:submenu label="Ustawienia" icon="ui-icon-gear">
+						<p:menuitem value="Przegladaj" outcome="/system/steak.xhtml">
+							<!-- <f:param name="page" value="../system/myTestView" />
+							<f:param name="header" value="Nowy kierowca" /> -->
+						</p:menuitem>
+						<p:menuitem value="Test" outcome="/template/graphicsTest2.xhtml">
+							<!-- <f:param name="page" value="../system/graphicsTest" />
+							<f:param name="header" value="Test mapy" /> -->
+						</p:menuitem>
+					</p:submenu>
+				</p:menubar>
+				</h:form>
+	    </ui:composition>

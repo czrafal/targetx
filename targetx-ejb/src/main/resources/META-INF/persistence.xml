@@ -1,0 +1,26 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+    http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+    version="2.0">
+	<persistence-unit name="CarMonitoring" transaction-type="JTA">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:jboss/datasources/CarMonitoring</jta-data-source>
+		<class>model.Route</class>
+		<class>model.Stop</class>
+		<class>model.SystemUsersClient</class>
+		<class>model.Tank</class>
+		<class>model.Vehicle</class>
+		<class>model.Driver</class>
+		<class>model.Geopoint</class>
+		<class>model.SystemUser</class>
+		<properties>
+                  <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+                  <property name="hibernate.show_sql" value="false"/>
+                  <property name="hibernate.format_sql" value="false"/>
+                  <property name="hibernate.default_schema" value="public"/>                  
+                  <property name="hibernate.hbm2ddl.auto" value="validate"/> 
+                  <property name="hibernate.use_sql_comments" value="false"/>
+	</properties>
+	</persistence-unit>
+</persistence>

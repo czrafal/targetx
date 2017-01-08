@@ -1,0 +1,55 @@
+
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:gis="http://gisfaces.com"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	<f:view contentType="text/html" id="fview">
+
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<h:head>      
+	<h:outputScript library="javax.faces" name="jsf.js" target="head" />
+	
+	<title>System monitoringu pojazdow</title>
+	<style type="text/css">
+.ui-layout-north {
+	z-index: 20 !important;
+	overflow: visible !important;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+	overflow: visible !important;
+}
+
+.ui-widget, .ui-widget .ui-widget {
+	font-size: 90% !important;
+}
+
+.ui-panelgrid td, .ui-panelgrid tr
+{
+    border-style: none !important
+}
+</style>
+
+</h:head>
+<h:body>
+		<pe:layout fullPage="true" id="allLayout">
+			<pe:layoutPane position="north" size="50" resizable="false" closable="false" collapsible="true" spacing="0">
+				<ui:include src="menubar.xhtml"/>
+			</pe:layoutPane>
+
+			<pe:layoutPane position="west" size="280" header="Pojazdy" id="leftPanel" resizable="true" closable="true" collapsible="true" spacing="0">
+				<ui:include src="realDriverTable.xhtml"/>
+			</pe:layoutPane>
+
+			<pe:layoutPane id="layout_center" position="center">
+				<h:panelGroup id="mainPanel"  layout="block">
+					<ui:insert name="content"/>
+				</h:panelGroup>
+			</pe:layoutPane>
+		</pe:layout>
+</h:body>
+</f:view>
+</html>

@@ -1,0 +1,100 @@
+
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>System monitoringu pojazdow</title>
+	<style type="text/css">
+.ui-layout-north {
+	z-index: 20 !important;
+	overflow: visible !important;;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+	overflow: visible !important;
+}
+
+.ui-widget, .ui-widget .ui-widget {
+	font-size: 90% !important;
+}
+
+.ui-panelgrid td, .ui-panelgrid tr
+{
+    border-style: none !important
+}
+</style>
+	<h:outputScript library="javax.faces" name="jsf.js" target="head" />
+	<h:outputScript library="javascripts" name="jquery.ba-bbq.min.js" /> 
+        <h:outputScript library="javascripts" name="main.js" />   
+</h:head>
+<h:body>
+	<h:form>
+		<p:layout fullPage="true" id="allLayout">
+			<p:layoutUnit position="north" size="50" resizable="false"
+				closable="false" collapsible="true" spacing="0">
+				<p:menubar rendered="true"
+					style="border: none; z-index: 9998; overflow: visible;">
+
+					<p:submenu label="Kierowcy">
+						<p:menuitem value="Nowy kierowca" outcome="/template/newDriver.xhtml">
+						</p:menuitem>
+					</p:submenu>
+
+					<p:submenu label="Trasy">
+						<p:menuitem value="Przegladaj" outcome="/template/viewRoutes.xhtml">
+							<f:param name="page" value="../system/viewRoutes" />
+							<f:param name="header" value="Trasy" />
+						</p:menuitem>
+						<p:menuitem value="Tryb rzeczywisty" update="mainPanel" action="#{navigationBean.doNav}">
+							<f:param name="page" value="../system/area" />
+							<f:param name="header" value="Mapa" />
+						</p:menuitem>
+						<p:menuitem value="Test" outcome="/template/graphicsTest.xhtml">
+							<f:param name="page" value="../system/graphicsTest" />
+							<f:param name="header" value="Test mapy" />
+						</p:menuitem>
+					</p:submenu>
+					
+					<p:submenu label="Paliwo">
+						<p:menuitem value="Dystrybutor" update="mainPanel"
+							action="#{navigationBean.doNav}">
+							<f:param name="page" value="../system/distributorView" />
+							<f:param name="header" value="Dystrybutor" />
+						</p:menuitem>
+						<p:menuitem value="Tankowania" outcome="/template/tanksView.xhtml">
+							<f:param name="page" value="/template/tanksView" />
+							<f:param name="header" value="Tankowania" />
+						</p:menuitem>
+					</p:submenu>
+				
+				</p:menubar>
+			</p:layoutUnit>
+			<p:remoteCommand name="updateNav" actionListener="#{navigationBean.doNav}"  update="mainPanel"/>
+			<p:layoutUnit position="west" size="280" header="Pojazdy" id="leftPanel" resizable="true" closable="true" collapsible="true" spacing="0">
+				<p:dataTable id="realVehicles" var="vehicleItem" value="#{vehicleListReal.vehicleList}" position="center" editable="false" selectionMode="single" selection="#{vehicleListReal.selectedCars}" rowKey="#{vehicleItem.IDDriver}">>
+					<p:column style="width:25%;">
+						<p:graphicImage value="/images/ciezarowka.png" width="64" height="42" />
+					</p:column>
+					<p:column>
+						<p:panelGrid columns="2">
+							<h:outputText value="Kierowca:" />
+							<h:outputText value="#{vehicleItem.LName}" />
+
+							<h:outputText value="Paliwo:" />
+							<h:outputText value="#{vehicleItem.gas}" />
+						</p:panelGrid>
+					</p:column>
+				</p:dataTable>
+			</p:layoutUnit>
+
+			<p:layoutUnit id="layout_center" position="center">
+				<h:panelGroup id="mainPanel" layout="block">
+					<ui:include src="#{navigationBean.pageName}"/>
+				 </h:panelGroup>
+			</p:layoutUnit>
+		</p:layout>
+	</h:form>
+</h:body>
+</html>
