@@ -77,13 +77,13 @@ public enum MonthsEnum{
     public static String getText(MonthsEnum month) {
             switch (month) {
             case JAN:
-                return "StyczeÒ";
+                return "Stycze≈Ñ";
             case FEB:
                 return "Luty";
             case MAR:
                 return "Marzec";
             case APRIL:
-                return "KwiecieÒ";
+                return "Kwiecie≈Ñ";
             case MAY:
                 return "Maj";
             case JUNE:
@@ -91,16 +91,16 @@ public enum MonthsEnum{
             case JULY:
                 return "Lipiec";
             case AUGUST:
-                return "SierpieÒ";
+                return "Sierpie≈Ñ";
             case SEPTEMBER:
-                return "WrzesieÒ";
+                return "Wrzesie≈Ñ";
             case OCTOBER:
-                return "Paüdziernik";
+                return "Pa≈Ñdziernik";
             case NOVEMBER:
                 return "Listopad";
             case DECEMBER:
-                return "GrudzieÒ";
-            default: return "StyczeÒ";
+                return "Grudzie≈Ñ";
+            default: return "Stycze≈Ñ";
         }
     }
 

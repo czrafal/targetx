@@ -15,8 +15,8 @@ import beans.VehiclesListBean;
 @SessionScoped
 public class VehicleList implements Serializable{
 /*
- * Klasa wyœwietlajaca tabelkê z pojazdami zaraz na pocz¹tku, po sprawdzeniu usun¹æ ewnetualnie
- * przerobic na przegl¹dy pojazdów
+ * Klasa wyswietlajaca tabelke z pojazdami zaraz na poczatku, po sprawdzeniu usunac ewnetualnie
+ * przerobic na przeglady pojazdow
  */
 	private static final long serialVersionUID = -2620841099499533628L;
 	private List<Vehicle> vehicleList;

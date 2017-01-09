@@ -94,27 +94,25 @@ public class DriverAndVehicleBean {
 	}
 
 	public void onEdit(RowEditEvent event) {  
-	        FacesMessage msg = new FacesMessage("Zapisano zmianê dla ", ((Driver) event.getObject()).getLName());  
+	        FacesMessage msg = new FacesMessage("Zapisano zmianÄ™ dla ", ((Driver) event.getObject()).getLName());  
 	        FacesContext.getCurrentInstance().addMessage(null, msg);  
-		 System.out.println("Zapisano zmianê ID pojazdu stare "+ ((Driver) event.getObject()).getIDVehicle());
 	     Driver driver = ((Driver) event.getObject());   
-		 System.out.println("Zapisano zmianê dla "+ driver.getLName());
-	     System.out.println("Nazwisko po zmianie:"+driver.getFName());   
+		 System.out.println("Zapisano zmianÄ™ dla "+ driver.getLName()); 
 	     driverListBean.updateDriver(driver);
 	    }  
 	      
 	    public void deleteDriver(Long id){  
 	    	
-	          System.out.println("Usuwam kierowcê o id:"+id);
+	          System.out.println("Usuwam kierowcÄ™ o id:"+id);
 	          Driver kierowca =  driverListBean.removeDriver(id);
 	          driverList.remove(kierowca);
 	    }
 	        		
 	 
 	    public void onCancel(RowEditEvent event) {  
-//	        FacesMessage msg = new FacesMessage("Anulowano zmianê dla ", ((Driver) event.getObject()).getLName());  
+//	        FacesMessage msg = new FacesMessage("Anulowano zmianï¿½ dla ", ((Driver) event.getObject()).getLName());  
 //	        FacesContext.getCurrentInstance().addMessage(null, msg);  
-	    	System.out.println("Anulowano zmianê dla "+ ((Driver) event.getObject()).getLName());
+	    	System.out.println("Anulowano zmianÄ™ dla "+ ((Driver) event.getObject()).getLName());
 	    }  
 	    public Driver getSelectedDriver() {
 			return selectedDriver;

@@ -50,7 +50,7 @@ public class NewVehicle {
    }
 	
 	public void onCancel(RowEditEvent event){
-		System.out.println("Anulowa³em edycjê!");
+		System.out.println("Anulowalem edycjÄ™!");
 	}
 	
 	 public void onEdit(RowEditEvent event) {  
