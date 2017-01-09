@@ -101,9 +101,6 @@
         <dependent-module archiveName="guava-18.0.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/google/guava/guava/18.0/guava-18.0.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="gisfaces-1.6.0.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/gisfaces/gisfaces/1.6.0/gisfaces-1.6.0.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="JavaAPIforKml-2.2.0.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/de/micromata/jak/JavaAPIforKml/2.2.0/JavaAPIforKml-2.2.0.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>

@@ -110,11 +110,11 @@
 			<version>18.0</version>
 		</dependency>
 		
-		<dependency>
-			<groupId>gisfaces</groupId>
-			<artifactId>gisfaces</artifactId>
-			<version>1.6.0</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>gisfaces</groupId> -->
+<!-- 			<artifactId>gisfaces</artifactId> -->
+<!-- 			<version>1.6.0</version> -->
+<!-- 		</dependency> -->
 		 
 		<!-- The Java API for KML -->
 		<dependency>

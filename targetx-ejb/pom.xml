@@ -7,6 +7,7 @@
 		<version>1.0</version>
 	</parent>
 	<artifactId>targetx-ejb</artifactId>
+	<packaging>ejb</packaging>
 	<properties>
   <maven.compiler.source>1.8</maven.compiler.source>
   <maven.compiler.target>1.8</maven.compiler.target>
