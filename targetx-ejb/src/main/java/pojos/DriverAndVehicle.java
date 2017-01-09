@@ -134,7 +134,7 @@ public class DriverAndVehicle {
         if(obj instanceof Vehicle){
             DriverAndVehicle objGroup = (DriverAndVehicle) obj;
             if(objGroup.getIDVehicle() == this.getIDVehicle()){
-               System.out.println("Znalaz³em");
+               System.out.println("Znalazlem");
                 return true;
             }
         }

@@ -52,7 +52,7 @@ public class DriverListBean {
 	public Driver removeDriver(Long id){
 		Driver driverToRemove = entityManager.find(Driver.class, id);
 		entityManager.remove(driverToRemove);
-		System.out.println("usun¹³em kierowcê:"+driverToRemove.getLName()+" o ID:"+driverToRemove.getIDDriver());
+		System.out.println("usunalem kierowce:"+driverToRemove.getLName()+" o ID:"+driverToRemove.getIDDriver());
 		return driverToRemove;
 	}
 	

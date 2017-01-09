@@ -35,13 +35,13 @@ public class NewVehicleBean {
     
     public void updateVehicle(Vehicle vehicle){
 		entityManager.merge(vehicle);
-		System.out.println("Wykona³em update kierowcy nowy pojazd id:"+vehicle.getIDVehicle());
+		System.out.println("Wykonalem update kierowcy nowy pojazd id:"+vehicle.getIDVehicle());
 		entityManager.flush();
 	}
     
     public void removeVehicle(Vehicle id){
 		Vehicle vehicleToRemove = entityManager.find(Vehicle.class, id.getIDVehicle());
 		entityManager.remove(vehicleToRemove);
-		System.out.println("usun¹³em kierowcê:"+vehicleToRemove.getBrand()+" o ID:"+vehicleToRemove.getIDVehicle());
+		System.out.println("usunalem kierowce:"+vehicleToRemove.getBrand()+" o ID:"+vehicleToRemove.getIDVehicle());
 	}
 }

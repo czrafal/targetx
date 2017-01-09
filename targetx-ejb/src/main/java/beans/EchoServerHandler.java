@@ -34,7 +34,7 @@ public class EchoServerHandler extends SimpleChannelHandler {
     	
     	if(dane[0].equals("1")){	
     		Geopoint newGeopoint = new Geopoint();
-    		System.out.println("Drukuje wiadomoœæ:"+message);
+    		System.out.println("Drukuje wiadomosc:"+message);
     		newGeopoint.setDistance(23);
     		newGeopoint.setLat(Double.parseDouble(dane[4]));
     		newGeopoint.setLon(Double.parseDouble(dane[5]));
