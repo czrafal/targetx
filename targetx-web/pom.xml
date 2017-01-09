@@ -10,13 +10,17 @@
   <artifactId>targetx-web</artifactId>
   <packaging>war</packaging>
   <name>targetx-web Maven Webapp</name>
-  <url>http://maven.apache.org</url>
   <properties>
-  <maven.compiler.source>1.8</maven.compiler.source>
-  <maven.compiler.target>1.8</maven.compiler.target>
-  <encoding>UTF-8</encoding>
-</properties>
+	<maven.compiler.source>1.8</maven.compiler.source>
+	<maven.compiler.target>1.8</maven.compiler.target>
+	<encoding>UTF-8</encoding>
+  </properties>
   <dependencies>
+  <dependency>
+   <groupId>org.targetx</groupId>
+    <artifactId>targetx-ejb</artifactId>
+    <version>1.0</version>
+  </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

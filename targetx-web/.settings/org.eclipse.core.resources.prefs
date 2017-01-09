@@ -1,6 +1,8 @@
 eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
 encoding//src/main/java/backing/DriverAndVehicleBean.java=UTF-8
 encoding//src/main/java/backing/NewVehicle.java=UTF-8
 encoding//src/main/java/backing/VehicleList.java=UTF-8
 encoding//src/main/java/utils/MonthsEnum.java=UTF-8
 encoding//src/main/webapp/system/newDriverView.xhtml=UTF-8
+encoding//src/test/java=UTF-8
