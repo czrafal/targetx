@@ -1,0 +1,6 @@
+INDEX VERSION 1.3+F:\Projekty\EclipseMonitoringMultiple\targetx\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+1197052655.index
+495392538.index
+240045079.index
+3684926075.index
+3396655058.index

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workingSetManager>
+<workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1483917308101_0" label="TargetXMain" name="TargetXMain">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/targetx-ear" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/targetx-web" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/targetx-ejb" type="4"/>
+</workingSet>
+</workingSetManager>
