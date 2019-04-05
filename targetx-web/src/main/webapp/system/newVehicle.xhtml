@@ -11,9 +11,10 @@
 		<ui:define name="metadata">
 	</ui:define>
 	<ui:define name="content">
-	<h:form>
+	<h:head></h:head>
 	<p:panel header="Nowy pojazd" toggleable="true">
-		<p:panelGrid columns="2">
+	<h:form>
+		<p:panelGrid columns="2" id="panel">
 			<f:facet name="header">Dane pojazdu</f:facet>
 
 			<p:outputLabel value="Marka pojazdu:"></p:outputLabel>
@@ -47,16 +48,21 @@
 			<p:outputLabel value="Przealad do:"></p:outputLabel>
 			<p:calendar value="#{newVehicle.vehicle.checkEnd}" navigator="true"
 				id="popupButtonCal5" showOn="button" />
-
+			<p:outputLabel value="Lokalizator:"></p:outputLabel>
+			<h:selectOneMenu value="#{newVehicle.selectedDevice}" style="width:100%">
+                        <f:selectItems value="#{locatorManagement.locatorList}"  var="dev" itemValue="#{dev}" itemLabel="#{dev.imei}"/>
+                   </h:selectOneMenu>
+			
 			<f:facet name="footer">
-				<p:commandButton value="Dodaj" action="#{newVehicle.addVehicle}"
-					update="vehicles" />
+				<p:commandButton value="Dodaj" actionListener="#{newVehicle.addVehicle}" process="panel" update="vehicles" />
 			</f:facet>
 		</p:panelGrid>
+	</h:form>
 	</p:panel>
+	
 	<p:separator/>
 	<p:dataTable id="vehicles" var="vehicle"
-		value="#{newVehicle.vehicleList}" position="center" editable="true">
+		value="#{newVehicle.vehicleList}" position="center" editable="true" rowKey="#{vehicle.idvehicle}">
 		<f:facet name="header">Wszystkie pojazdy</f:facet>
 		<p:ajax event="rowEdit" listener="#{newVehicle.onEdit}" />
 		<p:ajax event="rowEditCancel" listener="#{newVehicle.onCancel}" />
@@ -106,16 +112,27 @@
 			</p:cellEditor>
 		</p:column>
 
+		<p:column headerText="Imei">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{vehicle.gpsDevice.imei}"/>
+				</f:facet>
+				<f:facet name="input">
+					<h:selectOneMenu value="#{newVehicle.selectedDevice}" style="width:100%">
+                        <f:selectItems value="#{locatorManagement.locatorList}"  var="dev" itemValue="#{dev}" itemLabel="#{dev.imei}"/>
+                   </h:selectOneMenu>
+               </f:facet>
+			</p:cellEditor>
+		</p:column>
+		
 		<p:column headerText="Edycja">
+		
 			<p:rowEditor />
 		</p:column>
 
 		<p:column headerText="Usuwanie">
-			<p:commandLink id="deleteLink"
-				actionListener="#{newVehicle.deleteVehicle(vehicle)}"
-				styleClass="ui-icon ui-icon-trash" update="vehicles" />
+			<p:commandLink id="deleteLink" actionListener="#{newVehicle.deleteVehicle(vehicle)}" styleClass="ui-icon ui-icon-trash" update="vehicles" />
 		</p:column>
 	</p:dataTable>
-</h:form>
 	</ui:define>
 </ui:composition>

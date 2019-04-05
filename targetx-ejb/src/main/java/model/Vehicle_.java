@@ -27,4 +27,5 @@ public class Vehicle_ {
 	public static volatile ListAttribute<Vehicle, Tank> tanks1;
 	public static volatile ListAttribute<Vehicle, Tank> tanks2;
 	public static volatile SingularAttribute<Vehicle, SystemUser> systemUser;
+	public static volatile SingularAttribute<Vehicle, GpsDevice> gpsDevice;
 }

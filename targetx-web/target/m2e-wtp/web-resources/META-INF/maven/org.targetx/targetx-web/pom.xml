@@ -9,26 +9,32 @@
   </parent>
   <artifactId>targetx-web</artifactId>
   <packaging>war</packaging>
-  <name>targetx-web Maven Webapp</name>
+  
   <properties>
 	<maven.compiler.source>1.8</maven.compiler.source>
 	<maven.compiler.target>1.8</maven.compiler.target>
 	<encoding>UTF-8</encoding>
   </properties>
+  
   <dependencies>
   <dependency>
    <groupId>org.targetx</groupId>
     <artifactId>targetx-ejb</artifactId>
-    <version>1.0</version>
-  </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
+    <type>ejb</type>
+    <scope>compile</scope>
     </dependency>
+    <dependency>
+         <groupId>javax</groupId>
+         <artifactId>javaee-api</artifactId>
+      </dependency>
+  
   </dependencies>
   <build>
-    <finalName>targetx-web</finalName>
-  </build>
+      <plugins>
+         <plugin>
+            <artifactId>maven-war-plugin</artifactId>
+         </plugin>
+      </plugins>
+   </build>
+
 </project>

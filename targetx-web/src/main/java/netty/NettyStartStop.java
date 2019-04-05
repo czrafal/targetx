@@ -18,7 +18,7 @@ public class NettyStartStop {
 	}
 	
 	public void stopNetty(){
-		System.out.println("NettyStartStop.stopNetty()");
-		nettyEJB.stopNetty();
+//		System.out.println("NettyStartStop.stopNetty()");
+//		nettyEJB.stopNetty();
 	}
 }

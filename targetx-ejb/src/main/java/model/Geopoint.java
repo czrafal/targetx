@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 
 import javax.persistence.*;
 
@@ -18,6 +19,7 @@ import java.sql.Timestamp;
 //	@NamedQuery(name="Geopoint.findByIDRouteAndTime", query="SELECT g from Geopoint g where g.IDSystem =:IDSystem and g.IDRoutes=:IDRoutes and g.dateTime BETWEEN :timeFrom and :timeTo")
 	@NamedQuery(name="Geopoint.findByIDRouteAndTime", query="SELECT g from Geopoint g where g.IDSystem =:IDSystem and g.IDRoutes=:IDRoutes and (EXTRACT(HOUR FROM g.dateTime) * 60 + EXTRACT(MINUTE FROM g.dateTime)) BETWEEN :timeFrom and :timeTo")
 })
+@SequenceGenerator(name="geopoint_seq1",sequenceName = "geopoint_seq",allocationSize=1)
 @Entity
 @Table(name="Geopoints")
 public class Geopoint implements Serializable {
@@ -26,7 +28,7 @@ public class Geopoint implements Serializable {
 	public static String GET_GEOPOINTS_BY_ROUTE = "Geopoint.findByIDRoute";
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY, generator="geopoint_seq1")
 	@Column(name="IDGeopoints")
 	private Long IDGeopoints;
 
@@ -40,7 +42,7 @@ public class Geopoint implements Serializable {
 	private double gas;
 
 	@Column(name="IDDriver")
-	private Long IDDriver;
+	private BigInteger IDDriver;
 
 	@Column(name="IDRoutes")
 	private Long IDRoutes;
@@ -115,11 +117,11 @@ public class Geopoint implements Serializable {
 		this.gas = gas;
 	}
 
-	public Long getIDDriver() {
+	public BigInteger getIDDriver() {
 		return this.IDDriver;
 	}
 
-	public void setIDDriver(Long IDDriver) {
+	public void setIDDriver(BigInteger IDDriver) {
 		this.IDDriver = IDDriver;
 	}
 

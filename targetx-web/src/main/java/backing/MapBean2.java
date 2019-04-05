@@ -8,32 +8,30 @@ import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
-
 import com.gisfaces.event.MapClickEvent;
 import com.gisfaces.event.MapExtentEvent;
 import com.gisfaces.event.MapGeoLocationEvent;
 import com.gisfaces.event.MapGraphicDragEvent;
 import com.gisfaces.event.MapGraphicSelectEvent;
 import com.gisfaces.event.MapGraphicViewEvent;
-import com.gisfaces.model.Background;
-import com.gisfaces.model.CircleGraphic;
-import com.gisfaces.model.Coordinate;
-import com.gisfaces.model.Graphic;
-import com.gisfaces.model.GraphicsModel;
-import com.gisfaces.model.LineStyle;
-import com.gisfaces.model.MarkerGraphic;
-import com.gisfaces.model.MeasurementUnit;
-import com.gisfaces.model.PolygonGraphic;
-import com.gisfaces.model.PolylineGraphic;
-import com.gisfaces.model.TextGraphic;
-import com.gisfaces.util.GISUtilities;
-import com.gisfaces.util.StringUtilities;
+import com.gisfaces.model.map.Background;
+import com.gisfaces.model.graphic.CircleGraphic;
+import com.gisfaces.model.map.Coordinate;
+import com.gisfaces.model.graphic.GraphicsModel;
+import com.gisfaces.model.graphic.LineStyle;
+import com.gisfaces.model.graphic.MarkerGraphic;
+import com.gisfaces.model.graphic.MeasurementUnit;
+import com.gisfaces.model.graphic.PolygonGraphic;
+import com.gisfaces.model.graphic.PolylineGraphic;
+import com.gisfaces.model.graphic.TextGraphic;
+import com.gisfaces.utilities.GISUtilities;
+import com.gisfaces.utilities.StringUtilities;
 
 @ManagedBean
 @ViewScoped
@@ -54,6 +52,7 @@ public class MapBean2{
 	private GraphicsModel graphicsModel;
 	private GraphicsModel starbucksGraphicsModel;
 
+	
 
 	public MapBean2()
 	{
@@ -274,10 +273,6 @@ public class MapBean2{
 		TextGraphic text = new TextGraphic();
 		text.setCoordinate(new Coordinate(30.322628449125027, -81.66060081481795));
 		text.setText("Jacksonville");
-		text.setSize("24px");
-		text.setFamily("Verdana");
-		text.setBold(false);
-		text.setColor("#000000");
 		text.setOpacity(0.75);
 		text.getAttributes().put("Location", "Downtown Jacksonville");
 
@@ -304,20 +299,8 @@ public class MapBean2{
 	{
 		this.starbucksGraphicsModel = new GraphicsModel();
 		this.starbucksGraphicsModel.setName("Starbucks");
+        //todo
 
-		List<Graphic> graphics = this.starbucksGraphicsModel.getGraphics();
-		graphics.add(buildStarbucksMarker(30.304353, -81.655535, "1980 San Marco Blvd, Jacksonville, FL 32207"));
-		graphics.add(buildStarbucksMarker(30.312096, -81.680833, "1650 Margaret St, Jacksonville, FL 32204"));
-		graphics.add(buildStarbucksMarker(30.2432613, -81.5986099, "7153 Philips Hwy, Jacksonville, FL 32256"));
-		graphics.add(buildStarbucksMarker(30.278487, -81.720025, "4495 Roosevelt Blvd, Jacksonville, FL 32210"));
-		graphics.add(buildStarbucksMarker(30.292561, -81.601978, "5960 Beach Blvd, Jacksonville, FL 32216"));
-		graphics.add(buildStarbucksMarker(30.220144, -81.551926, "8221 Southside Blvd, Jacksonville, FL 32256"));
-		graphics.add(buildStarbucksMarker(30.204192, -81.617150, "9661 San Jose Blvd, Jacksonville, FL 32257"));
-		graphics.add(buildStarbucksMarker(30.260889, -81.645445, "1500 University Blvd W, Jacksonville, FL 32217"));
-		graphics.add(buildStarbucksMarker(30.429896, -81.662830, "1044 Dunn Ave, Jacksonville, FL 32218"));
-		graphics.add(buildStarbucksMarker(30.316828, -81.558313, "9301 Atlantic Blvd #101, Jacksonville, FL 32225"));
-		graphics.add(buildStarbucksMarker(30.25813, -81.5262888, "10281 Midtown Pkwy #203, Jacksonville, FL 32246"));
-		graphics.add(buildStarbucksMarker(30.190558, -81.551744, "9940 Southside Blvd, Jacksonville, FL 32256"));
 	}
 
 	private MarkerGraphic buildStarbucksMarker(double latitude, double longitude, String address)
@@ -482,4 +465,5 @@ public class MapBean2{
 	{
 		this.geoipGraphicsModel = geoipGraphicsModel;
 	}
+	
 }

@@ -12,7 +12,7 @@ import javax.ejb.Stateful;
 public class SysVehiclesStateful {
 
 	@EJB 
-	AddGeopoint addGeopoint;
+	DatabaseBean addGeopoint;
 	
     public SysVehiclesStateful() {
  

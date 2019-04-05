@@ -2,40 +2,35 @@ package pojos;
 
 import java.math.BigInteger;
 
+import model.Geopoint;
+import model.Route;
+import model.Vehicle;
+
+import org.traccar.model.Device;
+import org.traccar.model.Position;
+
 public class DriverInfo {
 
-	private BigInteger IDDriver;
-	private Long IDSystem;
-	private Long IDVehicle;
-	private Long IDRoutes;
-	
-	private String FName;
-	private String LName;
+	private BigInteger IDDriver; // vehicle driver?
+	private Long IDSystem = 2l;
+	private Route route;
 	private double gas;
 	private Integer maxspeed;
-	private double lat;
-	private double lon;
+	private Geopoint geopoint;
+	private boolean activeSession;
+	private Device device;
+	private Position position;
+	private Vehicle vehicle; 
 	
 	public DriverInfo(){
 		
 	}
 	
 	public DriverInfo(BigInteger IDDriver, String FName, String LName, double gas, Integer maxspeed) {
-		super();
 		this.IDDriver = IDDriver;
-		this.FName = FName;
-		this.LName = LName;
 		this.gas = gas;
 		this.maxspeed = maxspeed;
 	}
-
-	public Long getIDRoutes() {
-		return IDRoutes;
-	}
-
-	public void setIDRoutes(Long iDRoutes) {
-		IDRoutes = iDRoutes;
-	}	
 
 	public BigInteger getIDDriver() {
 		return IDDriver;
@@ -51,30 +46,6 @@ public class DriverInfo {
 
 	public void setIDSystem(Long iDSystem) {
 		IDSystem = iDSystem;
-	}
-
-	public Long getIDVehicle() {
-		return IDVehicle;
-	}
-
-	public void setIDVehicle(Long iDVehicle) {
-		IDVehicle = iDVehicle;
-	}
-
-	public String getFName() {
-		return FName;
-	}
-
-	public void setFName(String fName) {
-		FName = fName;
-	}
-
-	public String getLName() {
-		return LName;
-	}
-
-	public void setLName(String lName) {
-		LName = lName;
 	}
 
 	public double getGas() {
@@ -93,7 +64,7 @@ public class DriverInfo {
 		this.maxspeed = maxspeed;
 	}
 
-	public double getLat() {
+	/*public double getLat() {
 		return lat;
 	}
 
@@ -108,5 +79,69 @@ public class DriverInfo {
 	public void setLon(double lon) {
 		this.lon = lon;
 	}
+*/
+/*	public String getImei() {
+		return imei;
+	}
+
+	public void setImei(String imei) {
+		this.imei = imei;
+	}*/
+
+	public boolean isActiveSession() {
+		return activeSession;
+	}
+
+	public void setActiveSession(boolean activeSession) {
+		this.activeSession = activeSession;
+	}
 	
+	public Device getDevice() {
+		return device;
+	}
+
+	public void setDevice(Device device) {
+		this.device = device;
+	}
+
+/*	public String getVehicleRegNum() {
+		return vehicleRegNum;
+	}
+
+	public void setVehicleRegNum(String vehicleRegNum) {
+		this.vehicleRegNum = vehicleRegNum;
+	}*/
+
+	public Route getRoute() {
+		return route;
+	}
+
+	public void setRoute(Route route) {
+		this.route = route;
+	}
+
+	public Position getPosition() {
+		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
+	}
+
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
+
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
+	}
+
+	public Geopoint getGeopoint() {
+		return geopoint;
+	}
+
+	public void setGeopoint(Geopoint geopoint) {
+		this.geopoint = geopoint;
+	}
+
 }

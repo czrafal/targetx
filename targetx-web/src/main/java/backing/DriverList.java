@@ -32,7 +32,6 @@ public class DriverList implements Serializable{
 	
 	@PostConstruct
 	public void init(){
-		//driverList = driverListBean.allDriverShow(Driver.FIND_ALL_DRIVERS);
 		driverList = driverListBean.allDriversAndVehiclesShow();
 		vehicleList = driverListBean.allVehiclesGet();
 	}
@@ -59,23 +58,16 @@ public class DriverList implements Serializable{
 	}
 	
 	public void addNewDriver() {
-		System.out.println("Dodawanie nowego drivera!!!!");
-		
-		System.out.println("aaaaaa"+driverAndVehicle.getBrand());
-		System.out.println(driverAndVehicle.getFName());
-		
 		driverAndVehicle.setFName(driver.getFName());
 		driverAndVehicle.setLName(driver.getLName());
 		driverAndVehicle.setIDDriver(driver.getIDDriver());
 		driverAndVehicle.setIDSystem(driver.getIDSystem());
 		driverAndVehicle.setPhone(driver.getPhone());
 		System.out.println("Wybrany pojazd:"+selectedVehicle.getIDVehicle());
-		
 		if(selectedVehicle != null){
 			driver.setIDVehicle(selectedVehicle.getIDVehicle());
 		}
 		driverListBean.addNewDriver(driver);
-		//driverList.add(driverAndVehicle);
 	}
 	
 	public DriverAndVehicle getSelectedDriver() {

@@ -13,16 +13,16 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
 
+import model.Driver;
+import model.Route;
+import model.Vehicle;
+
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 
+import pojos.DriverAndVehicle;
 import DTO.RouteDTO;
 import DTO.RouteFromEntityDTO;
-import DTO.WorkTimeDTO;
-import pojos.DriverAndVehicle;
-import model.Driver;
-import model.Vehicle;
-import model.Route;
 
 @Stateless
 public class DriverListBean {
@@ -31,7 +31,7 @@ public class DriverListBean {
 	EntityManager entityManager;
 	
 	@EJB
-	private ConverterEntityToDTO converter; 
+	private EntityConverterBean converter; 
 	
 	@SuppressWarnings("unchecked")
 	public List<Driver> allDriverShow(String findAllDrivers) {
@@ -66,24 +66,15 @@ public class DriverListBean {
 	}
 	
 	public List<RouteDTO> allDriversWorkTimeByDateRange(Date from, Date to){
-	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 	    java.util.Date parsedDateStart = from;
 	    java.util.Date parsedDateEnd = to;
-//		try {
-//			parsedDateStart = dateFormat.parse(from.g);
-//			parsedDateEnd = dateFormat.parse("2013-04-29 00:00:00");
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//		}
-		
+
 		Query query = entityManager.createQuery("SELECT r, d FROM Route r, Driver d where r.IDSystem = :IDSystem and to_date(to_char(r.dateStart, 'YYYY-MON-DD'), 'YYYY-MON-DD')  >= :dateStart and to_date(to_char(r.dateEnd, 'YYYY-MON-DD'), 'YYYY-MON-DD')  <= :dateEnd and r.IDDriver = d.IDDriver");
 		query.setParameter("IDSystem", new Long(2));
 		query.setParameter("dateStart", new Date(parsedDateStart.getTime()), TemporalType.DATE);
 		query.setParameter("dateEnd", new Date(parsedDateEnd.getTime()), TemporalType.DATE);
-//		query.setParameter("IDDriver", new Long(3));
 		
 	    List<Object[]> driverList = query.getResultList();
-	    List<WorkTimeDTO> workList = converter.convertWorkingTimeToDTO(driverList);
 		List<RouteDTO> routeListDTO = new ArrayList<RouteDTO>();
 		
 	    for(Object obj[] : driverList){
@@ -117,11 +108,7 @@ public class DriverListBean {
 		Query query = entityManager.createQuery("SELECT r, d FROM Route r, Driver d where r.IDSystem = :IDSystem and to_date(to_char(r.dateStart, 'YYYY-MON-DD'), 'YYYY-MON-DD')  = :dateStart and r.IDDriver = d.IDDriver");
 		query.setParameter("IDSystem", new Long(2));
 		query.setParameter("dateStart", new Date(parsedDate.getTime()), TemporalType.DATE);
-//		query.setParameter("IDDriver", new Long(3));
-		
 	    List<Object[]> driverList = query.getResultList();
-	    List<WorkTimeDTO> workList = converter.convertWorkingTimeToDTO(driverList);
-	    
 	    for(Object obj[] : driverList){
 	    	Route route = (Route)obj[0];
 	    	Driver driver = (Driver) obj[1];

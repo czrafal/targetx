@@ -19,7 +19,6 @@
 	<p:separator/>
 		 <ui:include src="/dialogs/driverWorkTimeDialog.xhtml"/>
 	<h:panelGroup id="tablePanel">
-	<h:outputText value="test11"/> 
 		<p:dataTable id="routes" var="team" value="#{driverWorkTimeList.routesList}" rendered="#{driverWorkTimeList.detail == true}">
         <f:facet name="header">Czas pracy</f:facet>
         <p:columnGroup type="header">
@@ -33,13 +32,17 @@
         </p:columnGroup>
         <p:subTable var="stats" value="#{team.routeList}">
             <f:facet name="header">
-                <h:outputText value="#{team.driver.LName}"/>
+                <h:outputText value="#{team.vehicle.regNum}"/>
             </f:facet>
             <p:column>
-                <h:outputText value="#{stats.dateStart}"/>
+                <h:outputText value="#{stats.dateStart}">
+                	<f:convertDateTime pattern="yyyy-MM-dd hh:mm:ss" />
+                </h:outputText>
             </p:column>
             <p:column>
-                <h:outputText value="#{stats.dateEnd}"/>
+                <h:outputText value="#{stats.dateEnd}">
+                     <f:convertDateTime pattern="yyyy-MM-dd hh:mm:ss" />
+                </h:outputText>
             </p:column>
             <p:column headerText="Czas">
 				<h:outputText value="#{stats.timePeriodString}"/>
@@ -62,17 +65,17 @@
     
     <p:dataTable id="drivers" var="driver" value="#{driverWorkTimeList.workTimeDTOList}" position="center" rendered="#{driverWorkTimeList.detail == false}">
     <f:facet name="header">Czas pracy</f:facet>
-                <p:column headerText="Kierowca">
-                    #{driver.driver.LName}
+                <p:column headerText="Pojazd">
+                    <h:outputText value="#{driver.vehicle.regNum}"/>
                 </p:column>
                 <p:column headerText="Data początkowa">
-                    #{driver.dateStart}
+                    <h:outputText value="#{driver.dateStart}"/>
                 </p:column>
                 <p:column headerText="Data końcowa">
-                    #{driver.dateEnd}
+                    <h:outputText value="#{driver.dateEnd}"/>
                 </p:column>
                  <p:column headerText="Dystans" sortBy="#{driver.distanceSum}">
-                    #{driver.distanceSum}
+                    <h:outputText value="#{driver.distanceSum}"/>
                 </p:column>
                             <p:summaryRow>
                     <p:column colspan="3">

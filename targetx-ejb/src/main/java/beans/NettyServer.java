@@ -10,9 +10,9 @@ import org.jboss.netty.handler.codec.string.StringDecoder;
 import org.jboss.netty.handler.codec.string.StringEncoder;
 
 public class NettyServer {
-	ChannelFactory factory;
+	/*ChannelFactory factory;
 	ServerBootstrap bootstrap;
-	
+	InetSocketAddress socket = new InetSocketAddress(5555);
 	public void startServer() throws Exception {
 		 factory = new NioServerSocketChannelFactory(
 				Executors.newCachedThreadPool(),
@@ -28,14 +28,14 @@ public class NettyServer {
 
 		bootstrap.setOption("child.tcpNoDelay", true);
 		bootstrap.setOption("child.keepAlive", true);
-		bootstrap.bind(new InetSocketAddress(8888));
+		bootstrap.bind(socket);
 		
-		System.out.println("Server Started!");
+		System.out.println("Server Started at!"+socket);
 	}
 
 	public void stopServer() {
 		bootstrap.bind().close();
 		
 		System.out.println("Server Stoped!");
-	}
+	}*/
 }

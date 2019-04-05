@@ -8,35 +8,34 @@
 		<p:panel header="Filtr" toggleable="true">
 		<p:panelGrid columns="7">
 		<p:selectOneMenu id="dateFilter" value="#{routesList.dateOption}" ajax="true">
-			<f:selectItem itemLabel="Data" itemValue="A"/>
-			<f:selectItem itemLabel="Zakres dat" itemValue="B"/>
-			<f:selectItem itemLabel="Miesiąc" itemValue="M"/>
+			<f:selectItem itemLabel="Data" itemValue="DATE"/>
+			<f:selectItem itemLabel="Zakres dat" itemValue="DATERANGE"/>
+			<f:selectItem itemLabel="Miesiąc" itemValue="MONTH"/>
 			<p:ajax update="perfbyselection dateRangePanel"/>
 		</p:selectOneMenu>
 		
 		<h:panelGroup id="dateRangePanel">
-			<p:outputLabel for="option" value="Data:" rendered="#{routesList.dateOption eq 'A'}"/>
-		    	<p:calendar value="#{routesList.date}" pattern="dd/MM/yyyy" update="routes" rendered="#{routesList.dateOption eq 'A'}">
+			<p:outputLabel for="option" value="Data:" rendered="#{routesList.dateOption eq 'DATE'}"/>
+		    	<p:calendar value="#{routesList.date}" pattern="dd/MM/yyyy" update="routes" rendered="#{routesList.dateOption eq 'DATE'}">
 		    </p:calendar>
 		    
-			<p:outputLabel for="option" value="Data od:" rendered="#{routesList.dateOption eq 'B'}"/>
-				<p:calendar value="#{routesList.dateFrom}" pattern="dd/MM/yyyy" rendered="#{routesList.dateOption eq 'B'}">
+			<p:outputLabel for="option" value="Data od:" rendered="#{routesList.dateOption eq 'DATERANGE'}"/>
+				<p:calendar value="#{routesList.dateFrom}" pattern="dd/MM/yyyy" rendered="#{routesList.dateOption eq 'DATERANGE'}">
 		    </p:calendar>
 			
-			<p:outputLabel for="option" value="Data do:" rendered="#{routesList.dateOption eq 'B'}"/>
-				<p:calendar value="#{routesList.dateTo}" pattern="dd/MM/yyyy" rendered="#{routesList.dateOption eq 'B'}">
+			<p:outputLabel for="option" value="Data do:" rendered="#{routesList.dateOption eq 'DATERANGE'}"/>
+				<p:calendar value="#{routesList.dateTo}" pattern="dd/MM/yyyy" rendered="#{routesList.dateOption eq 'DATERANGE'}">
 		    </p:calendar>
 		   
-            <p:selectOneMenu id="monthMenu" value="#{routesList.selectedMonth}" rendered="#{routesList.dateOption eq 'M'}">
+            <p:selectOneMenu id="monthMenu" value="#{routesList.selectedMonth}" rendered="#{routesList.dateOption eq 'DATERANGE'}">
             <f:selectItem itemLabel="Wybierz miesiac" itemValue="" />
                 <f:selectItems value="#{routesList.monthsList}"/>
             </p:selectOneMenu>
             
-            <p:selectOneMenu id="yearMenu" value="#{routesList.selectedYear}" rendered="#{routesList.dateOption eq 'M'}">
+            <p:selectOneMenu id="yearMenu" value="#{routesList.selectedYear}" rendered="#{routesList.dateOption eq 'MONTH'}">
             <f:selectItem itemLabel="Wybierz rok" itemValue="" />
                 <f:selectItems value="#{routesList.yearsList}"/>
             </p:selectOneMenu>
-            
 		</h:panelGroup>
 		
 		<h:outputText value="Szczegółowo" />
@@ -45,17 +44,17 @@
         </p:selectBooleanCheckbox>
 		<p:outputLabel for="option" value="Wyszukiwanie wg:" />
 		<p:selectOneMenu id="option" value="#{routesList.typeOption}" ajax="true" for="search">
-			<f:selectItem itemLabel="Wszystkie trasy" itemValue="C"/>
-			<f:selectItem itemLabel="Pojazd" itemValue="V"/>
-			<f:selectItem itemLabel="Kierowca" itemValue="D"/>
+			<f:selectItem itemLabel="Wszystkie trasy" itemValue="ALLROUTE"/>
+			<f:selectItem itemLabel="Pojazd" itemValue="VEHICLE"/>
+			<f:selectItem itemLabel="Kierowca" itemValue="DRIVER"/>
 			<f:ajax event="change" render="perfbyselection"/>
 		</p:selectOneMenu>
 		
 		<h:panelGroup id="perfbyselection">
-			<h:outputText value="Numer rejestracji:" rendered="#{routesList.typeOption eq 'V'}" />
-				<p:inputText id="fieldVReg" value="#{routesList.searchDate}" rendered="#{routesList.typeOption eq 'V'}"/>
-			<h:outputText value="Nazwisko:" rendered="#{routesList.typeOption eq 'D'}"/>
-				<p:inputText id="fieldDDriver" value="#{routesList.searchDate}" rendered="#{routesList.typeOption eq 'D'}"/>
+			<h:outputText value="Numer rejestracji:" rendered="#{routesList.typeOption eq 'VEHICLE'}" />
+				<p:inputText id="fieldVReg" value="#{routesList.searchDate}" rendered="#{routesList.typeOption eq 'VEHICLE'}"/>
+			<h:outputText value="Nazwisko:" rendered="#{routesList.typeOption eq 'DRIVER'}"/>
+				<p:inputText id="fieldDDriver" value="#{routesList.searchDate}" rendered="#{routesList.typeOption eq 'DRIVER'}"/>
 			<p:commandButton id="search" value="Wyszukaj" update="routes" action="#{routesList.searchAction}" ajax="true"/>
 		</h:panelGroup>
 		</p:panelGrid>

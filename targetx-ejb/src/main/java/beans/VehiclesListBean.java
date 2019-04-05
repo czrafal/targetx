@@ -9,7 +9,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.apache.commons.lang3.StringUtils;
+import org.traccar.model.Device;
+
 import pojos.DriverInfo;
+import model.Geopoint;
+import model.Route;
 import model.Vehicle;
 
 @Stateless
@@ -44,32 +49,40 @@ public class VehiclesListBean {
 	@SuppressWarnings("unchecked")
 	public List<DriverInfo> allDriverRealShow(){
 		List<DriverInfo> driverInfoRetList = new ArrayList<DriverInfo>();
-		List<Object[]> driverInfoList = entityManager.createNativeQuery("Select d.IDDriver, d.fname, d.lname, g.gas, g.maxspeed, g.lat, g.lon from Drivers d LEFT OUTER JOIN Geopoints g on d.IDDriver = g.IDDriver and d.IDSystem = 2 and g.IDGeopoints in (SELECT distinct max(g1.IDGeopoints) from Geopoints g1 where g.IDDriver = g1.IDDriver OR g1.IDSystem is null group BY g1.IDDriver)").getResultList();
-		for(Object[] obj:driverInfoList){
+//		List<Object[]> driverInfoList = entityManager.createNativeQuery("Select v.*, g.*, r.idroutes from Geopoints g RIGHT JOIN Vehicles v on v.IDVehicle = g.IDVehicle and g.IDGeopoints = (SELECT max(g1.IDGeopoints) from Geopoints g1 where g.IDVehicle = g1.IDVehicle OR g1.IDGeopoints is null) LEFT JOIN Gpsdevices d on v.IDDevice = d.IDDevice LEFT JOIN Routes r on r.idroutes = g.idroutes").getResultList();
+		List<Object[]> driverInfoList = entityManager.createQuery("Select v, g, r "
+				+ "from Geopoint g RIGHT OUTER JOIN g.vehicle v "
+				+ "LEFT JOIN v.gpsDevice d "
+				+ "LEFT JOIN g.route r "
+				+ "where g.vehicle = v and v.IDSystem = 2 "
+				+ "and g.IDGeopoints = (SELECT max(g1.IDGeopoints) from Geopoint g1 where g.vehicle = g1.vehicle) OR g is null "
+				+ "and v.gpsDevice = d and r = g.route OR r is null").getResultList();
+		
+		for(Object[] obj : driverInfoList){
 			DriverInfo driverObj = new DriverInfo();
-			if(obj[0]!=null){
-				driverObj.setIDDriver((BigInteger) obj[0]);	
+			Vehicle vehicle = (Vehicle)obj[0];
+			Geopoint geopoint = (Geopoint)obj[1];	
+			Route route = (Route)obj[2];
+			driverObj.setIDDriver(BigInteger.ONE);
+			if(vehicle!=null){
+				driverObj.setVehicle(vehicle);
+				Device device = new Device();
+				if(vehicle.getGpsDevice() != null && StringUtils.isNotBlank(vehicle.getGpsDevice().getImei())){
+					device.setId(Long.valueOf(vehicle.getGpsDevice().getImei()));	
+				}
+				driverObj.setDevice(device);
 			}
-			if(obj[1]!=null){
-				driverObj.setFName((String) obj[1]);	
+			if(geopoint!=null){
+				driverObj.setGas(geopoint.getGas());
+				driverObj.setMaxspeed(geopoint.getMaxspeed());
+				driverObj.setGeopoint(geopoint);
 			}
-			if(obj[2]!=null){
-				driverObj.setLName((String) obj[2]);	
-			}
-			if(obj[3]!=null){
-				driverObj.setGas((double) obj[3]);	
-			}
-			if(obj[4]!=null){
-				driverObj.setMaxspeed((int) obj[4]);	
-			}
-			if(obj[5]!=null){
-				driverObj.setLat((double) obj[5]);	
-			}
-			if(obj[6]!=null){
-				driverObj.setLon((double) obj[6]);	
+			if(route!=null){
+				driverObj.setRoute(route);
 			}
 			driverInfoRetList.add(driverObj);
 		}
 		return driverInfoRetList; 
 	}
+	
 }

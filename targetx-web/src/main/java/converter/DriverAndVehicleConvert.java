@@ -15,7 +15,6 @@ import pojos.DriverAndVehicle;
 
 import beans.DriverListBean;
 
-
 @FacesConverter(value="driverAndVehicleConvert")
 public class DriverAndVehicleConvert implements Converter{
 	
@@ -24,23 +23,18 @@ public class DriverAndVehicleConvert implements Converter{
 	
 	public Object getAsObject(FacesContext arg0, UIComponent arg1, String value) {
 		System.out.println("metoda getAsObject converter "+value);
-		
 		try {
 			 context = new InitialContext();
 			 bean = (DriverListBean) context.lookup("java:global/TargetXEar/TargetXEJB/DriverListBean");
-		}
-		
-		catch (NamingException e) {
+		}catch (NamingException e) {
 			e.printStackTrace();
 		}  
-		
 		return bean.getVehicleByRegNum(new Long(2), Long.parseLong(value));
 	}
 
 	public String getAsString(FacesContext arg0, UIComponent arg1, Object value) {
 		System.out.println("metoda getAsString converter ");
 		DriverAndVehicle veh = (DriverAndVehicle)value;
-		
 		System.out.println("Vehicle value id:"+veh.getIDVehicle());
 		System.out.println("Vehicle value regNum:"+veh.getRegNum());
 		
@@ -50,7 +44,6 @@ public class DriverAndVehicleConvert implements Converter{
 			   System.out.println("ID pojazdu:"+regAsString);
 		}
 		return regAsString;
-		
 	}
 
 }

@@ -4,21 +4,31 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:f="http://java.sun.com/jsf/core">
-<h:form>
-<p:dataTable id="realVehicles" var="vehicleItem" value="#{vehicleListReal.vehicleList}" position="center" editable="false" selectionMode="single" selection="#{vehicleListReal.selectedCars}" rowKey="#{vehicleItem.IDDriver}">>
-					<p:column style="width:25%;">
-						<p:graphicImage value="/images/ciezarowka.png" width="64" height="42" />
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:form id="form">
+<p:growl id="msgs" showDetail="true" />
+<p:poll interval="30" update="realVehicles" listener="#{vehicleListReal.vehicleListListener}" />
+<p:dataTable id="realVehicles" var="vehicleItem" value="#{vehicleListReal.vehicleList}" position="center" editable="false" selectionMode="single" selection="#{mapBean.selectedCar}" rowKey="#{vehicleItem.vehicle.IDVehicle}">
+ <p:ajax event="rowSelect" listener="#{mapBean.onRowSelect}" update=":mapForm:map :form:msgs"/>
+					<p:column headerText="Status" style="width:25%;">
+						<c:if test="#{vehicleItem.position.getVehicleStatusAsString() == 'IGNITION_ON'}">
+							<p:graphicImage value="/images/green_baloon.png" width="48" height="48" />
+						</c:if>
+						<c:if test="#{vehicleItem.position == null or vehicleItem.position.getVehicleStatusAsString() == 'IGNITION_OFF' or vehicleItem.position.getVehicleStatusAsString() == 'NONE'}">
+							<p:graphicImage value="/images/red_baloon.png" width="48" height="48" />
+						</c:if>
 					</p:column>
-					<p:column>
+					<p:column headerText="Pojazdy">
 						<p:panelGrid columns="2">
-							<h:outputText value="Kierowca:" />
-							<h:outputText value="#{vehicleItem.LName}" />
+							<h:outputText value="Pojazd:" />
+							<h:outputText value="#{vehicleItem.vehicle.regNum}" />
 
 							<h:outputText value="Paliwo:" />
 							<h:outputText value="#{vehicleItem.gas}" />
 						</p:panelGrid>
 					</p:column>
 				</p:dataTable>
+				
 </h:form>
 </ui:composition>

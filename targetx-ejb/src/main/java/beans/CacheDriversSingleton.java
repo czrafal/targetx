@@ -1,19 +1,19 @@
 package beans;
 
-import java.math.BigInteger;
-import java.sql.Timestamp;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.ConcurrencyManagement;
+import javax.ejb.ConcurrencyManagementType;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Singleton;
-import javax.ejb.ConcurrencyManagementType;
-import javax.ejb.ConcurrencyManagement;
 import javax.ejb.Startup;
+
+import org.traccar.database.DeviceManager;
+import org.traccar.model.Device;
 
 import pojos.DriverInfo;
 
@@ -23,52 +23,41 @@ import pojos.DriverInfo;
 @ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
 public class CacheDriversSingleton {
 
-	private ConcurrentHashMap<BigInteger, List<DriverInfo>> driversCache = new ConcurrentHashMap<>();
+	private ConcurrentHashMap<Long, List<DriverInfo>> driversCache = null;
 
 	@EJB
 	VehiclesListBean vehicleListBean;
-	
+    private Map<Long, Device> devicesById;
+    private Map<String, Device> devicesByUniqueId;
+    
 	@PostConstruct
 	public void initialize() {
-		System.out.println("Utworzy�em now� map� cache'owania pojazdow");
-		this.driversCache.put(new BigInteger(new String("2")), vehicleListBean.allDriverRealShow());
+		System.out.println("Utworzylem nowa mape cache'owania pojazdow");
+		this.driversCache = new ConcurrentHashMap<>();
+		this.driversCache.put(new Long(new String("2")),
+				vehicleListBean.allDriverRealShow());
+
+		if (devicesById == null) {
+			devicesById = new ConcurrentHashMap<>();
+		}
+		if (devicesByUniqueId == null) {
+			devicesByUniqueId = new ConcurrentHashMap<>();
+		}
 	}
 
-	public boolean checkCache(Long idSystemUser, BigInteger idDriver, Timestamp dateTime, Double pozycja, Double stanPaliwa, int maxspeed) {
-
+	public boolean updateVehicleCash(DriverInfo driverInfo) {
+		System.out.println("updateVehicleCash");
 		boolean isTrue = false;
+		DriverInfo driver = findVehicle(driverInfo);
+		System.out.println("updateVehicleCash 2");
+		List<DriverInfo> listDrivers = driversCache.get(driverInfo.getIDSystem());
+		System.out.println("updateVehicleCash 3");
+		listDrivers.set(listDrivers.indexOf(driver), driverInfo);
+		System.out.println("updateVehicleCash 4");
+		driversCache.replace(driverInfo.getIDSystem(), listDrivers);
+		System.out.println("W mapie pojazdow znajduje sie:");
 
-		if (driversCache.containsKey(idSystemUser)) {
-			List<DriverInfo> listDrivers = driversCache.get(idSystemUser);
-			for (DriverInfo info : listDrivers) {
-				if (info.getIDDriver() == idDriver) {
-					info.setIDDriver(idDriver);
-					info.setIDSystem(idSystemUser);
-
-					info.setGas(stanPaliwa);
-					info.setMaxspeed(maxspeed);
-					listDrivers.add(listDrivers.indexOf(info), info);
-					driversCache.put(BigInteger.valueOf(idSystemUser), listDrivers);
-					isTrue = true;
-				}
-			}
-
-		} else {
-			List<DriverInfo> listDrivers = new LinkedList<>();
-			DriverInfo driverInfo = new DriverInfo();
-			driverInfo.setIDDriver(idDriver);
-			driverInfo.setIDSystem(idSystemUser);
-			driverInfo.setMaxspeed(maxspeed);
-			driverInfo.setGas(stanPaliwa);
-			listDrivers.add(driverInfo);
-			isTrue = false;
-
-			driversCache.put(idDriver, listDrivers);
-		}
-
-		System.out.println("W mapie pojazd�w znajduje si�:");
-
-		for (Map.Entry<BigInteger, List<DriverInfo>> entry : driversCache.entrySet()) {
+		for (Map.Entry<Long, List<DriverInfo>> entry : driversCache.entrySet()) {
 			List<DriverInfo> value = entry.getValue();
 			for (DriverInfo pojazd : value) {
 				System.out.println("IDSystem:" + pojazd.getIDSystem()
@@ -79,8 +68,51 @@ public class CacheDriversSingleton {
 		return isTrue;
 	}
 
+	private DriverInfo findVehicle(DriverInfo driverInfo){
+		DriverInfo newDriver = new DriverInfo();
+		System.out.println("updateVehicleCash 5");
+		if (driversCache.containsKey(driverInfo.getIDSystem())) {
+			System.out.println("updateVehicleCash 6");
+			List<DriverInfo> listVehicles = driversCache.get(driverInfo.getIDSystem());
+			System.out.println("updateVehicleCash 7");
+			for (DriverInfo info : listVehicles) {
+				System.out.println(info.getVehicle().getIDVehicle());
+				if (info.getVehicle() == driverInfo.getVehicle()) {
+					System.out.println("updateVehicleCash 8");
+					newDriver = info;
+				}
+			}
+		} else {
+			System.out.println("updateVehicleCash 9");
+			newDriver = driverInfo;
+		}
+		System.out.println("return updateVehicleCash "+newDriver.getVehicle().getRegNum());
+		return newDriver;
+	}
+	
+	public Device deviceSessionByImei(String imei){
+		DeviceManager deviceManager = new DeviceManager();
+		Device device = deviceManager.getDeviceByUniqueId(imei);
+		return device;
+	}
+	
 	public List<DriverInfo> getDriversCache(Long idSystem) {
-		List<DriverInfo> listDrivers = driversCache.get(new BigInteger(new String("2")));
+		List<DriverInfo> listDrivers = driversCache.get(idSystem);
 		return listDrivers;
 	}
+
+	public DriverInfo driverInfoByDeviceImei(long id) {
+		System.out.println("driverInfoByDeviceImei id "+id);
+    	List<DriverInfo> devices = getDriversCache(2L);
+    	DriverInfo driver = new DriverInfo();
+    	for(DriverInfo device:devices){
+    		if((device.getDevice() != null) && (device.getDevice().getId() != 0)){
+    			driver = device;
+    		}
+    	}
+    	
+    	System.out.println("driverInfoByDeviceImei driver "+driver.getDevice().getId());
+        return driver;
+    }
+	
 }

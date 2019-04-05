@@ -4,11 +4,12 @@ import java.util.Date;
 import java.util.List;
 
 import model.Driver;
-import model.Route;
+import model.Vehicle;
 
 public class RouteDTO extends VehicleDTO{
 	
 	private Driver driver;
+	private Vehicle vehicle;
 	private RouteFromEntityDTO route;
 	private Double distanceSum;
 	private Integer routeTimeDays;
@@ -121,6 +122,14 @@ public class RouteDTO extends VehicleDTO{
 
 	public void setTimePeriodString(String timePeriodString) {
 		this.timePeriodString = timePeriodString;
+	}
+
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
+
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
 	}
 	
 }

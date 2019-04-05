@@ -21,7 +21,7 @@ public class DriverAndVehicleConverter implements Converter{
 	
 		try {
 			 context = new InitialContext();
-			 bean = (VehiclesListBean) context.lookup("java:global/TargetXEar/TargetXEJB/VehiclesListBean");
+			 bean = (VehiclesListBean) context.lookup("java:global/targetx-ear-1.0/targetx-web-1.0/VehiclesListBean");
 		}
 		catch (NamingException e) {
 			e.printStackTrace();

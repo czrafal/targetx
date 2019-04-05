@@ -1,0 +1,27 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:form id="form">
+<p:dataTable id="realVehicles" var="vehicleItem" value="#{vehicleListReal.vehicleList}" position="center" editable="false">
+
+					<p:column headerText="Status" style="width:25%;">
+						<p:graphicImage value="/images/red_baloon.png" width="48" height="48" />
+					</p:column>
+					<p:column headerText="Pojazdy">
+						<p:panelGrid columns="2">
+							<h:outputText value="Pojazd:" />
+							<h:outputText value="#{vehicleItem.vehicle.regNum}" />
+
+							<h:outputText value="Paliwo:" />
+							<h:outputText value="#{vehicleItem.gas}" />
+						</p:panelGrid>
+					</p:column>
+				</p:dataTable>
+				
+</h:form>
+</ui:composition>

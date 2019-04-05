@@ -17,24 +17,20 @@
     	}
     </script>
 	<h:inputHidden id="hiddenButton" value="#{routesList.selectedOrderId}"/>
-	<p:remoteCommand name="remoteCommand" oncomplete="PF('workTimeDialogVar').show();" actionListener="#{routesList.prepareViewFromPayroll}" update="map1">
+	<p:remoteCommand name="remoteCommand" oncomplete="PF('workTimeDialogVar').show();" actionListener="#{routesList.prepareViewFromPayroll}" update="dialogForm:map1, dialogForm">
 	</p:remoteCommand>
 		<p:panel id="mainPanel" header="Trasy">
 		<ui:include src="/components/filter.xhtml"/>
 	<p:separator/>
 	 <p:dialog id="workTimeDialog" header="Szczegóły trasy" widgetVar="workTimeDialogVar" width="1200" height="600">
+	 <h:form id="dialogForm">
         <h:panelGroup id="dialogContent">
-        <p:selectCheckboxMenu id="driver" value="#{routesList.selectedGeopoint}" filter="true" filterMatchMode="contains" showCheckbox="true">
-            	<f:selectItems value="#{routesList.geopointList}" var = "regNumber"  itemLabel="#{regNumber.lat}"/> 
-        </p:selectCheckboxMenu>
-<!--  	 <p:panel id="mapRendered" rendered="#{routesList.selectedOrderId ne null}"> -->
 		<h:panelGroup id="mymapdiv" styleClass="gisfacesMapPanel" layout="block"></h:panelGroup>
-		<gis:map id="map1" mapPanel="mymapdiv" background="streets" latitude="53.972753" longitude="17.281934" zoom="15">
+		<gis:map id="map1" mapPanel="mymapdiv" background="osm" latitude="#{routesList.latitude}" longitude="#{routesList.longitude}" zoom="13">
 			<gis:service type="graphics" model="#{routesList.geoipGraphicsModel}"></gis:service>
 		</gis:map>
-		
         <p:separator/>
-		<p:panel header="Ustawienia" toggleable="true">
+		<p:panel header="Ustawienia" toggleable="true" collapsed="true">
 		<h:panelGrid columns="5">
 		<h:outputText value="Od godziny:" for="advanced"/>
 			<p:selectOneListbox id="advanced" value="#{routesList.chartView.timeStart}" filter="true" filterMatchMode="contains" showCheckbox="true" style="width:100px">
@@ -52,37 +48,40 @@
 			<p:chart type="line" model="#{routesList.chartView.areaModel}" style="height:300px;width:570px"/>
 		</p:panel>
 		</h:panelGroup>
+		</h:form>
 	 </p:dialog>
 	 
 	<h:panelGroup id="tablePanel">
-	<p:outputLabel value="ID trasy:"/>
-	<h:outputText id="output" value="#{routesList.selectedRoute.IDRoutes}"/>
 	<p:dataTable id="routes" var="team" value="#{routesList.routesList}">
         <f:facet name="header">Trasy</f:facet>
         <p:columnGroup type="header">
             <p:row>
-                <p:column headerText="Data poczatkowa"/>
-                <p:column headerText="Data koncowa"/>
+            	<p:column headerText="Numer rejestracyjny"/>
+                <p:column headerText="Data początkowa"/>
+                <p:column headerText="Data końcowa"/>
                 <p:column headerText="Dystans"/>
                 <p:column headerText="Trasa"/>
             </p:row>
         </p:columnGroup>
         <p:subTable var="stats" value="#{team.routeList}">
-            <f:facet name="header">
-                <h:outputText value="#{team.driver.LName}" />
-            </f:facet>
-            <p:column>
-                <h:outputText value="#{stats.dateStart}" />
+            <p:column style="text-align: center">
+                <h:outputText value="#{stats.vehicle.regNum}"/>
             </p:column>
-            <p:column>
-                <h:outputText value="#{stats.dateEnd}" />
+            <p:column style="text-align: center">
+                <h:outputText value="#{stats.dateStart}" style="text-align: center">
+                	<f:convertDateTime pattern="yyyy-MM-dd hh:mm:ss" />
+                </h:outputText>
             </p:column>
-            <p:column headerText="Dystans">
+            <p:column style="text-align: center">
+                <h:outputText value="#{stats.dateEnd}" style="text-align: center">
+                    <f:convertDateTime pattern="yyyy-MM-dd hh:mm:ss" />
+                </h:outputText>
+            </p:column>
+            <p:column headerText="Dystans" style="text-align: center">
 				<h:outputText value="#{stats.distanceSum}" />
 			</p:column>
-            <p:column>
-            	<p:commandButton id="actopmp2" value="Trasa" onclick="routeId(#{stats.IDRoutes});" >
-            	</p:commandButton>
+            <p:column style="text-align: center">
+            	<p:commandButton id="actopmp2" icon="ui-icon-search" onclick="routeId(#{stats.IDRoutes});"/>
             </p:column>
         </p:subTable>
     </p:dataTable>

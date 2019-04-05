@@ -7,7 +7,6 @@ public class DriverAndVehicle {
 	private Long IDDriver;
 	private Long IDSystem;
 	private Long IDVehicle;
-	
 	private String FName;
 	private String LName;
 	private String model;
@@ -19,9 +18,7 @@ public class DriverAndVehicle {
 		
 	}
 	
-	public DriverAndVehicle(Long iDDriver, Long iDSystem, Long iDVehicle,
-			String fName, String lName, String phone, String model, String brand, String reg) {
-		super();
+	public DriverAndVehicle(Long iDDriver, Long iDSystem, Long iDVehicle, String fName, String lName, String phone, String model, String brand, String reg) {
 		IDDriver = iDDriver;
 		IDSystem = iDSystem;
 		IDVehicle = iDVehicle;
@@ -33,21 +30,17 @@ public class DriverAndVehicle {
 		this.regNum = reg;
 	}
 	
-	
 	public String getRegNum() {
 		return regNum;
 	}
-
 
 	public void setRegNum(String regNum) {
 		this.regNum = regNum;
 	}
 
-
 	public String getPhone() {
 		return phone;
 	}
-
 
 	public void setPhone(String phone) {
 		this.phone = phone;
@@ -57,66 +50,53 @@ public class DriverAndVehicle {
 		return IDDriver;
 	}
 
-
 	public void setIDDriver(Long iDDriver) {
 		IDDriver = iDDriver;
 	}
-
 
 	public Long getIDSystem() {
 		return IDSystem;
 	}
 
-
 	public void setIDSystem(Long iDSystem) {
 		IDSystem = iDSystem;
 	}
-
 
 	public Long getIDVehicle() {
 		return IDVehicle;
 	}
 
-
 	public void setIDVehicle(Long iDVehicle) {
 		IDVehicle = iDVehicle;
 	}
-
 
 	public String getFName() {
 		return FName;
 	}
 
-
 	public void setFName(String fName) {
 		FName = fName;
 	}
-
 
 	public String getLName() {
 		return LName;
 	}
 
-
 	public void setLName(String lName) {
 		LName = lName;
 	}
-
-
+	
 	public String getModel() {
 		return model;
 	}
-
 
 	public void setModel(String model) {
 		this.model = model;
 	}
 
-
 	public String getBrand() {
 		return brand;
 	}
-
 
 	public void setBrand(String brand) {
 		this.brand = brand;

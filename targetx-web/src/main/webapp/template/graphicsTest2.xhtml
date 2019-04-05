@@ -35,28 +35,11 @@
 				<ui:include src="/template/menubar.xhtml"/>			
 			</p:layoutUnit>
 
-			<p:layoutUnit position="west" size="280" header="Pojazdy"
-				id="leftPanel" resizable="true" closable="true" collapsible="true" spacing="0">
-				<p:dataTable id="realVehicles" var="vehicleItem" value="#{vehicleListReal.vehicleList}" position="center" editable="false" selectionMode="single" selection="#{vehicleListReal.selectedCars}" rowKey="#{vehicleItem.IDDriver}">>
-					<p:column style="width:25%;">
-						<p:graphicImage value="/images/ciezarowka.png" width="64" height="42" />
-					</p:column>
-					<p:column>
-						<p:panelGrid columns="2">
-							<h:outputText value="Kierowca:" />
-							<h:outputText value="#{vehicleItem.LName}" />
-
-							<h:outputText value="Paliwo:" />
-							<h:outputText value="#{vehicleItem.gas}" />
-						</p:panelGrid>
-					</p:column>
-				</p:dataTable>
+			<p:layoutUnit position="west" size="280" header="Pojazdy" id="leftPanel" resizable="true" closable="true" collapsible="true" spacing="0">
 			</p:layoutUnit>
 
 			<p:layoutUnit id="layout_center" position="center">
-					<h:panelGroup id="mainPanel" header="#{navigationBean.headerName}" layout="block" styleClass="gisfacesMapPanel">
-					<ui:include src="../system/graphicsTest.xhtml" />
-				 </h:panelGroup>
+					<p:commandButton value="Dodaj" action="#{vehicleListReal.vehicleListTest}" />
 			</p:layoutUnit>
 		</p:layout>
 	</h:form>

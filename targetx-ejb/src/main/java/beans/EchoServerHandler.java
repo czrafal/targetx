@@ -1,15 +1,8 @@
 package beans;
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.Properties;
-
 import javax.ejb.EJB;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
-import model.Geopoint;
-
+import org.jboss.netty.buffer.ChannelBuffer;
+import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.channel.ExceptionEvent;
@@ -30,7 +23,17 @@ public class EchoServerHandler extends SimpleChannelHandler {
     public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) { 
 
     	String message = (String)e.getMessage();
-    	String[] dane = message.split(":");
+    	System.out.println("Drukuje wiadomosc:"+message);
+        
+        ChannelBuffer response = ChannelBuffers.directBuffer(1);
+        if (message != null && message.trim().equalsIgnoreCase("352848022867325")) {
+                response.writeByte(1);
+        } else {
+                response.writeByte(0);
+        }
+        ctx.getChannel().write(response);
+    	
+    /*	String[] dane = message.split(":");
     	
     	if(dane[0].equals("1")){	
     		Geopoint newGeopoint = new Geopoint();
@@ -45,21 +48,17 @@ public class EchoServerHandler extends SimpleChannelHandler {
     		newGeopoint.setGas(Double.parseDouble(dane[6]));
     		newGeopoint.setMaxspeed(Integer.parseInt(dane[7]));
     		newGeopoint.setIDSystem(new Long(dane[1]));
-    		newGeopoint.setIDDriver(new Long(dane[2]));
+    		newGeopoint.setIDDriver(new BigInteger(dane[2]));
     		newGeopoint.setIDRoutes(new Long(1));
     		newGeopoint.setIDVehicle(new Long(dane[3]));
     		try {
-
-				Properties props = new Properties();
-				props.setProperty("java.naming.factory.initial","com.sun.enterprise.naming.SerialInitContextFactory");
-
-				Context ctxgt = new InitialContext(props);
-				AddGeopoint addGeopoint = (AddGeopoint) ctxgt.lookup("java:global/TargetXEar/TargetXEJB/AddGeopoint");
+				Context ctxgt = new InitialContext();
+				AddGeopoint addGeopoint = (AddGeopoint) ctxgt.lookup("java:global/targetx-ear/targetx-web-1.0/AddGeopoint");
 				addGeopoint.addNewGeopoint(newGeopoint);
     		} catch (NamingException e1) {
 				e1.printStackTrace();
 			}
-    	}
+    	}*/
     	
     }
 

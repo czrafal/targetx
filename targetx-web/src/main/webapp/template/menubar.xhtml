@@ -10,22 +10,15 @@
 <h:form>
 	<p:menubar rendered="true" style="border: none; z-index: 9998; overflow: visible;">
 				<p:submenu label="Zdarzenia">
-						<p:menuitem value="Przegladaj" outcome="/system/realMapView.xhtml">
+						<p:menuitem value="Przegladaj" outcome="/index.xhtml">
 							<!-- <f:param name="page" value="../system/realMapView" />
 							<f:param name="header" value="Nowy kierowca" /> -->
 						</p:menuitem>
 
 					</p:submenu>
 					<p:submenu label="Pojazdy">
-						<p:menuitem value="Nowy pojazd" outcome="/system/newVehicle.xhtml">
-							<!-- <f:param name="page" value="../system/newVehicle" />
-							<f:param name="header" value="Nowy pojazd" /> -->
-						</p:menuitem>
-
-						<p:menuitem value="Przeglady pojazdow" outcome="/system/allVehiclesView.xhtml">
-							<!-- <f:param name="page" value="../system/allVehiclesView" />
-							<f:param name="header" value="Przeglady pojazdow" /> -->
-						</p:menuitem>
+						<p:menuitem value="Nowy pojazd" outcome="/system/newVehicle.xhtml"></p:menuitem>
+						<p:menuitem value="Przeglady pojazdow" outcome="/system/allVehiclesView.xhtml"></p:menuitem>
 					</p:submenu>
 
 					<p:submenu label="Kierowcy">
@@ -44,7 +37,11 @@
 							<f:param name="header" value="Czas pracy" /> -->
 						</p:menuitem>
 					</p:submenu>
-
+					
+					<p:submenu label="Urządzenia">
+						<p:menuitem value="Lokalizatory" outcome="/system/gpsDevices.xhtml"></p:menuitem>
+					</p:submenu>
+					
 					<p:submenu label="Trasy">
 						<p:menuitem value="Przegladaj" outcome="/system/routesView.xhtml">
 							<!-- <f:param name="page" value="../system/viewRoutes" />

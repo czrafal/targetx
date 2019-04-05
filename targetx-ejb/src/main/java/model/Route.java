@@ -37,6 +37,8 @@ import java.util.List;
     @NamedQuery(name="Route.getTimeByDateRangeAndDriver",    		 		  
          query="Select r, min(to_date(to_char(r.dateStart, 'YYYY-MON-DD'), 'YYYY-MON-DD')), max(to_date(to_char(r.dateEnd, 'YYYY-MON-DD'), 'YYYY-MON-DD')), sum(r.fuelEnd) as fuelSum, sum(r.distanceSum) as distanceSum FROM Route r, Driver d where r.IDSystem =:IDSystem and d.IDDriver = r.IDDriver and to_date(to_char(r.dateStart, 'YYYY-MON-DD'), 'YYYY-MON-DD') between :dateStart and :dateEnd and r.driver.LName LIKE :LName group by r.IDRoutes")
 }) 
+
+@SequenceGenerator(name="routes_seq1",sequenceName = "routes_seq",allocationSize=1)
 @Entity
 @Table(name="Routes")
 @NamedQuery(name="Route.findAll", query="SELECT r FROM Route r")
@@ -54,8 +56,9 @@ public class Route implements Serializable {
 	public static String GET_ROUTE_BY_MONTH_AND_DRIVER = "Route.getRouteByMonthAndDriver";
 	public static String GET_ROUTE_BY_DAY_RANGE_AND_REG = "Route.getRouteByDayRangeAndReg";
 	public static String GET_WORKTIME_BY_DAY_RANGE_AND_NAME = "Route.getTimeByDateRangeAndDriver";
+	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY, generator="routes_seq1")
 	@Column(name="IDRoutes")
 	private Long IDRoutes;
 

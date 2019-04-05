@@ -16,9 +16,7 @@ public class VehicleDTO {
 	private Date OCDateEnd;
 	private Date OCDateStart;
 	private String regNum;
-	private Double fuelStart;
-	private Double fuelEnd;
-	
+
 	public VehicleDTO() {
 	}
 
@@ -108,22 +106,6 @@ public class VehicleDTO {
 
 	public void setRegNum(String regNum) {
 		this.regNum = regNum;
-	}
-
-	public Double getFuelStart() {
-		return fuelStart;
-	}
-
-	public void setFuelStart(Double fuelStart) {
-		this.fuelStart = fuelStart;
-	}
-
-	public Double getFuelEnd() {
-		return fuelEnd;
-	}
-
-	public void setFuelEnd(Double fuelEnd) {
-		this.fuelEnd = fuelEnd;
 	}
 	
 }

@@ -1,7 +1,9 @@
 package model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +18,7 @@ import java.util.List;
          @NamedQuery(name="Vehicles.getAllVehicles",		 		  
          query="SELECT v FROM Vehicle v where v.IDSystem =2"),
 }) 
-
+@SequenceGenerator(name="vehicle_seq1",sequenceName = "vehicle_seq",allocationSize=1)
 @Entity
 @Table(name="Vehicles")
 @NamedQuery(name="Vehicle.findAll", query="SELECT v FROM Vehicle v")
@@ -26,7 +28,7 @@ public class Vehicle implements Serializable {
 	public static String FIND_VEHICLES_BY_REG = "Vehicles.getVehiclesByReg";
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY, generator="vehicle_seq1")
 	@Column(name="idvehicle")
 	private Long IDVehicle;
 
@@ -94,6 +96,13 @@ public class Vehicle implements Serializable {
 	@JoinColumn(name="IDSystem", referencedColumnName="IDSystem", insertable=false, updatable=false)
 	private SystemUser systemUser;
 
+	@OneToOne
+	@JoinColumn(name="IDDevice", referencedColumnName="IDDevice")
+	private GpsDevice gpsDevice;
+	
+	@Column(name="iddevice")
+	private Long IDDevice;
+	
 	public Vehicle() {
 	}
 
@@ -313,4 +322,21 @@ public class Vehicle implements Serializable {
 		this.systemUser = systemUser;
 	}
 
+	public GpsDevice getGpsDevice() {
+		return gpsDevice;
+	}
+
+	public void setGpsDevice(GpsDevice gpsDevice) {
+		this.gpsDevice = gpsDevice;
+	}
+
+	public Long getIDDevice() {
+		return IDDevice;
+	}
+
+	public void setIDDevice(Long iDDevice) {
+		IDDevice = iDDevice;
+	}
+
+	
 }

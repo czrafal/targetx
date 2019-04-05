@@ -25,6 +25,11 @@
 							<f:param name="page" value="../system/allVehicles" />
 							<f:param name="header" value="Przeglady pojazdow" />
 						</p:menuitem>
+						
+						<p:menuitem value="Urządzenia" update="mainPanel" action="#{navigationBean.doNav}" immediate="true">
+							<f:param name="page" value="../system/gpsDevices" />
+							<f:param name="header" value="Urządzenia GPS" />
+						</p:menuitem>
 					</p:submenu>
 
 					<p:submenu label="Kierowcy">

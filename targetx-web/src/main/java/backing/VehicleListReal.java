@@ -1,80 +1,96 @@
 package backing;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+
+import org.primefaces.event.SelectEvent;
 
 import pojos.DriverInfo;
 import beans.CacheDriversSingleton;
-import beans.DriverListBean;
 import beans.VehiclesListBean;
 
-@ManagedBean(name="vehicleListReal")
-@SessionScoped
-public class VehicleListReal implements Serializable{
+@ManagedBean(name = "vehicleListReal")
+@ViewScoped
+public class VehicleListReal implements Serializable {
 
 	private static final long serialVersionUID = 7160455397627208242L;
 
 	private List<DriverInfo> vehicleListReal;
-	private List<DriverInfo> selectedCars;
-	
+
 	@EJB
 	VehiclesListBean vehicleListBean;
-	
+
 	@EJB
 	CacheDriversSingleton activeDriversList;
-	{
-	try {
-		activeDriversList = (CacheDriversSingleton) new InitialContext().lookup("java:global/targetx-ear/targetx-ejb-1.0/CacheDriversSingleton");
-	}
-	catch (NamingException e) {
-		e.printStackTrace();
-	}  
-	}
+	
+	private DriverInfo selectedCar;
+	
 	@PostConstruct
-	public void vehicleListRealInit(){
+	public void vehicleListRealInit() {
 		vehicleListReal = vehicleListBean.allDriverRealShow();
-//		vehicleListReal = vehicleListBean.allDriverRealShow("Select NEW pojos.DriverInfo(d.IDDriver, d.FName, d.LName, g.gas, g.maxspeed) from Driver d, Geopoint g where d.IDDriver = g.IDDriver and g.IDGeopoints = (SELECT distinct max(g1.IDGeopoints) from Geopoint g1 where g.IDDriver = g1.IDDriver group BY g1.IDDriver) and g.IDSystem = 2 group by d.IDDriver, g.gas, g.maxspeed, g.distance");
+	}
+	
+	public void onRowSelect(SelectEvent event) {
+		DriverInfo driver = ((DriverInfo) event.getObject());
+		BigInteger driverID = ((DriverInfo) event.getObject()).getIDDriver();
+        FacesMessage msg = new FacesMessage("Car Selected", String.valueOf(driver.getPosition().getLatitude()+" "+driver.getPosition().getLongitude() +" rej:"+driver.getVehicle().getRegNum()) +" iddriver:"+driverID);
+
+        DriverInfo car = this.selectedCar;
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+	
+   /*
+    * Listener for driver list poll
+    */
+	public void vehicleListListener() {
+		List<DriverInfo> activeDrivers = activeDriversList.getDriversCache(new Long(2));
+		if (activeDrivers!=null) {
+			vehicleListReal = activeDrivers;
+//			mapBean.buildRealGraphicsModel();
+//			mapBean.refreshGraphicsModel()
+			com.gisfaces.model.map.Background.getSelectItems();
+		}
 	}
 
 	public List<DriverInfo> getVehicleList() {
-		
-		if(activeDriversList.getDriversCache(new Long(2)) != null){
-			List<DriverInfo> activeDrivers = activeDriversList.getDriversCache(new Long(2));
-			vehicleListReal = activeDrivers;
-			/*
-			for(DriverInfo driver : vehicleListReal){
-				for(DriverInfo driverCache : activeDrivers){
-					if(driver.getIDDriver().equals(driverCache.getIDDriver())){
-						int index = vehicleListReal.indexOf(driver);
-						driver.setGas(driverCache.getGas());
-						driver.setMaxspeed(driverCache.getMaxspeed());
-						vehicleListReal.set(index, driver);
-					}
-				}
-			}*/	
+		List<DriverInfo> drivers = activeDriversList.getDriversCache(new Long(2));
+		if (drivers != null) {
+			vehicleListReal = drivers;
 		}
-		
+		return vehicleListReal;
+	}
+	
+	public void vehhicleListTest(){
+		long id = 352848022867325l;
+		activeDriversList.driverInfoByDeviceImei(id);
+	}
+	
+	public void setVehicleList(List<DriverInfo> vehicleList) {
+		this.vehicleListReal = vehicleList;
+	}
+	
+	public List<DriverInfo> getVehicleListReal() {
 		return vehicleListReal;
 	}
 
-	public void setVehicleList(List<DriverInfo> vehicleList) {
-		
-		this.vehicleListReal = vehicleList;
+	public void setVehicleListReal(List<DriverInfo> vehicleListReal) {
+		this.vehicleListReal = vehicleListReal;
 	}
 
-	public List<DriverInfo> getSelectedCars() {
-		return selectedCars;
+	public DriverInfo getSelectedCar() {
+		return selectedCar;
 	}
 
-	public void setSelectedCars(List<DriverInfo> selectedCars) {
-		this.selectedCars = selectedCars;
+	public void setSelectedCar(DriverInfo selectedCar) {
+		this.selectedCar = selectedCar;
 	}
+
 }

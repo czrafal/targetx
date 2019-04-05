@@ -3,6 +3,7 @@ package DTO;
 public class WorkTimeDTO extends RouteDTO{
 
 	private Double allDistanceSum;
+	private Double fuelEnd;
 	
 	public WorkTimeDTO(){
 		
@@ -14,6 +15,14 @@ public class WorkTimeDTO extends RouteDTO{
 
 	public void setAllDistanceSum(Double allDistanceSum) {
 		this.allDistanceSum = allDistanceSum;
+	}
+
+	public Double getFuelEnd() {
+		return fuelEnd;
+	}
+
+	public void setFuelEnd(Double fuelEnd) {
+		this.fuelEnd = fuelEnd;
 	}
 	
 }

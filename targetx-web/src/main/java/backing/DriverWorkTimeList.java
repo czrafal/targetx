@@ -32,9 +32,12 @@ import DTO.RouteDTO;
 import DTO.WorkTimeDTO;
 import beans.RoutesBean;
 
-import com.gisfaces.model.Coordinate;
-import com.gisfaces.model.GraphicsModel;
-import com.gisfaces.model.MarkerGraphic;
+import com.gisfaces.model.map.Coordinate;
+import com.gisfaces.model.graphic.GraphicsModel;
+import com.gisfaces.model.graphic.MarkerGraphic;
+
+import enums.DateFilterEnum;
+import enums.TypeFilterEnum;
 
 @ManagedBean(name="driverWorkTimeList")
 @ViewScoped
@@ -118,31 +121,37 @@ public class DriverWorkTimeList implements Serializable{
 	    System.out.println("zaznaczone:"+selectedRoute.getIDRoutes());
 	}
 	
-	public void searchAction(){
+	public void searchAction() {
 		System.out.print("Akcja wyszukaj");
-		if(typeOption.equals("D") && dateOption.equals("B")){
+
+		DateFilterEnum filterEnum = DateFilterEnum.valueOf(dateOption);
+		TypeFilterEnum typeFilterEnum = TypeFilterEnum.valueOf(typeOption);
+		
+		if (typeFilterEnum.equals(TypeFilterEnum.DRIVER) && filterEnum.equals(DateFilterEnum.DATERANGE)) {
 			workTimeDTOList = routesBean.getWorkTimeByDayRangeAndDriver(dateFrom, dateTo, searchDate);
-		}else if(typeOption.equals("D")){
-			System.out.println("Szukam nazwiska:"+searchDate+" dnia:"+date.toString());
+		} else if (typeFilterEnum.equals(TypeFilterEnum.DRIVER)) {
 			routesList = routesBean.getRouteByDayAndDriver(date, searchDate);
-		}else if(typeOption.equals("V")){
-			System.out.println("Szukam pojazdu:"+searchDate+" dnia:"+date.toString());
-		}else if(dateOption.equals("A") && detail == false){//data
+		} else if (typeFilterEnum.equals(TypeFilterEnum.VEHICLE)) {
+		} else if (filterEnum.equals(DateFilterEnum.DATE) && detail == false) {// data
 			workTimeDTOList = routesBean.getWorkTime(date, dateTo, detail);
-		}else if(dateOption.equals("A") && detail == true){
+		} else if (filterEnum.equals(DateFilterEnum.DATE) && detail == true) {
 			routesList = routesBean.getRouteByDayDetails(date);
-		}else if(dateOption.equals("B")){ //zakres dat
+		} else if (filterEnum.equals(DateFilterEnum.DATERANGE)) { // zakres dat
 			routesList = routesBean.getRouteByDayRange(dateFrom, dateTo);
-		}else if(typeOption.equals("A")){//data
+		} else if (typeFilterEnum.equals(TypeFilterEnum.ALLROUTE)) {
 			routesList = routesBean.getRouteByDay(date);
 			routesBean.getRouteByDayAsMap(date);
-		}else if(dateOption.equals("M")){
+		} else if (filterEnum.equals(DateFilterEnum.MONTH)) {
 			DateFormat sd = new SimpleDateFormat("MM-yyyy");
 			int month = MonthsEnum.get(selectedMonth);
 			date = new Date();
 			try {
-				date = sd.parse(month+"-"+selectedYear);
-				routesList = routesBean.getRouteByMonthAndYear(date);
+				date = sd.parse(month + "-" + selectedYear);
+				if (detail) {
+					routesList = routesBean.getRouteByMonthAndYear(date);
+				} else {
+					workTimeDTOList = routesBean.getWorkTime(date, dateTo, detail);
+				}
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
